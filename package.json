@@ -9,12 +9,18 @@
     "lint": "eslint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@supabase/supabase-js": "^2.83.0",
     "framer-motion": "^12.23.24",
     "next": "16.0.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-icons": "^5.5.0"
+=======
+    "next": "16.0.3",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+>>>>>>> a2b6eec671f15243cc85030a1e0994d19c3c25c7
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
