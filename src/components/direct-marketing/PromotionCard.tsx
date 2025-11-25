@@ -1,6 +1,9 @@
-import React from 'react';
+"use client"; 
+
+import React, { useState } from 'react';
 import { Promotion } from '@/lib/mockData';
-import { FaTicketAlt, FaHandshake, FaTag } from 'react-icons/fa';
+import { FaTicketAlt, FaHandshake, FaTag, FaClipboardCheck } from 'react-icons/fa';
+import Link from 'next/link';
 
 interface PromotionCardProps {
   promotion: Promotion;
@@ -20,6 +23,31 @@ const getIcon = (type: Promotion['type']) => {
 };
 
 const PromotionCard: React.FC<PromotionCardProps> = ({ promotion }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleAction = () => {
+    if (promotion.type === 'Coupon') {
+      navigator.clipboard.writeText(promotion.details.replace('Use code: ', ''));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+      return;
+    }
+    alert(`Redirecting you to complete the action: ${promotion.callToAction}`);
+  };
+
+  const buttonText = () => {
+    if (promotion.type === 'Coupon') {
+      return copied ? (
+        <>
+          <FaClipboardCheck className="mr-2" /> Code Copied!
+        </>
+      ) : (
+        'Copy Code & Shop'
+      );
+    }
+    return promotion.callToAction;
+  };
+
   return (
     <div className="bg-white border-l-8 rounded-lg shadow-md p-6 transition transform hover:scale-[1.01] duration-300"
          style={{ borderLeftColor: promotion.type === 'Coupon' ? '#f97316' : promotion.type === 'Membership' ? '#3b82f6' : '#10b981' }}>
@@ -42,8 +70,8 @@ const PromotionCard: React.FC<PromotionCardProps> = ({ promotion }) => {
       
       {promotion.type === 'Coupon' ? (
         <div className="bg-gray-100 border border-dashed border-gray-400 p-3 rounded-md mb-4 text-center">
-          <p className="text-sm text-gray-700">Use Code:</p>
-          <p className="text-xl font-mono font-extrabold text-red-600 select-all">{promotion.details}</p>
+          <p className="text-sm text-gray-700">Coupon Code:</p>
+          <p className="text-xl font-mono font-extrabold text-red-600 select-all">{promotion.details.replace('Use code: ', '')}</p>
         </div>
       ) : (
         <p className="text-sm font-medium text-gray-700 bg-gray-100 p-3 rounded-md mb-4">
@@ -52,14 +80,14 @@ const PromotionCard: React.FC<PromotionCardProps> = ({ promotion }) => {
       )}
 
       <button 
-        onClick={() => alert(`Redirecting to: ${promotion.callToAction}`)} 
-        className={`w-full py-3 rounded-lg font-semibold text-white transition duration-300 ${
+        onClick={handleAction} 
+        className={`w-full py-3 rounded-lg font-semibold text-white transition duration-300 flex items-center justify-center ${
           promotion.type === 'Coupon' ? 'bg-orange-600 hover:bg-orange-700' : 
           promotion.type === 'Membership' ? 'bg-blue-600 hover:bg-blue-700' : 
           'bg-green-600 hover:bg-green-700'
         }`}
       >
-        {promotion.callToAction}
+        {buttonText()}
       </button>
     </div>
   );

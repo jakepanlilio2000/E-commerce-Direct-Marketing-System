@@ -1,20 +1,20 @@
 export interface Product {
   id: number;
   name: string;
-  category: 'Groceries' | 'Snacks' | 'Prepared Meal';
+  category: 'Groceries' | 'Snacks' | 'Prepared Meal' | 'Beverages';
   price: number;
   description: string;
-  imagePath: string; 
-  targetAudience: Array<'Individuals' | 'Parents' | 'Groceries'>;
+  imagePath: string;
+  targetAudience: ('Individuals' | 'Parents' | 'Groceries')[];
   callToAction: string;
 }
 
 export const MOCK_PRODUCTS: Product[] = [
   {
     id: 1,
-    name: 'Premium Whole-Grain Oatmeal',
+    name: 'Premium Whole-Grain Oatmeal (1kg)',
     category: 'Groceries',
-    price: 4.99,
+    price: 275.0,
     description: 'The perfect healthy start for busy mornings. Rich in fiber and quick to prepare.',
     imagePath: '/images/product-mock-1.jpg',
     targetAudience: ['Parents', 'Individuals'],
@@ -22,9 +22,9 @@ export const MOCK_PRODUCTS: Product[] = [
   },
   {
     id: 2,
-    name: 'Family-Size Frozen Lasagna',
+    name: 'Family-Size Frozen Beef Lasagna',
     category: 'Prepared Meal',
-    price: 18.50,
+    price: 1020.0,
     description: 'A convenient, high-quality dinner solution for a family of four. Ready in minutes.',
     imagePath: '/images/product-mock-2.jpg',
     targetAudience: ['Parents', 'Groceries'],
@@ -32,16 +32,45 @@ export const MOCK_PRODUCTS: Product[] = [
   },
   {
     id: 3,
-    name: 'Organic Apricot Yogurt',
+    name: 'Organic Apricot Yogurt (6-Pack)',
     category: 'Snacks',
-    price: 2.50,
+    price: 140.0,
     description: 'A light and delicious snack, great for lunchboxes or a quick energy boost.',
     imagePath: '/images/product-mock-3.jpg',
     targetAudience: ['Individuals'],
     callToAction: '😋 Grab Your Snack Today!',
   },
+  {
+    id: 4,
+    name: 'Gourmet Philippine Blend Coffee',
+    category: 'Beverages',
+    price: 495.0,
+    description: 'Medium roast, locally sourced beans for the perfect morning kick.',
+    imagePath: '/images/product-mock-4.jpg',
+    targetAudience: ['Individuals', 'Groceries'],
+    callToAction: '☕ Brew Your Perfect Cup!',
+  },
+  {
+    id: 5,
+    name: 'Ready-to-Eat Chicken Adobo',
+    category: 'Prepared Meal',
+    price: 195.0,
+    description: 'Classic Filipino Adobo, quick-frozen for convenience and authentic taste.',
+    imagePath: '/images/product-mock-5.jpg',
+    targetAudience: ['Individuals'],
+    callToAction: '🍚 Buy Adobo Now!',
+  },
+  {
+    id: 6,
+    name: 'Premium Local White Rice (5kg)',
+    category: 'Groceries',
+    price: 320.0,
+    description: 'High-quality, polished white rice, a staple for every Filipino home.',
+    imagePath: '/images/product-mock-6.jpg',
+    targetAudience: ['Parents', 'Groceries'],
+    callToAction: '🌾 Stock Up Your Pantry!',
+  },
 ];
-
 
 export interface Promotion {
   title: string;
@@ -54,9 +83,9 @@ export interface Promotion {
 export const MOCK_PROMOTIONS: Promotion[] = [
   {
     title: 'New Customer Welcome',
-    description: 'Get 15% off your first order when you sign up for our newsletter!',
+    description: 'Get ₱50 off your first order when you sign up for our newsletter!',
     type: 'Coupon',
-    details: 'Use code: MHARTHEA15 at checkout.',
+    details: 'Use code: MHARTHEA50 at checkout.',
     callToAction: 'Sign Up and Save Today!',
   },
   {

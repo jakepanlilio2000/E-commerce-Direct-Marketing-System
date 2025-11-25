@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { FaTruckLoading, FaTags, FaUsers } from 'react-icons/fa';
 import { MOCK_PRODUCTS } from '../lib/mockData';
 import NewsletterSignup from '../components/direct-marketing/NewsletterSignup';
+import { formatPrice } from '../lib/price';
 
 const featuredProduct = MOCK_PRODUCTS[0];
 
@@ -74,7 +75,7 @@ export default function HomePage() {
           <span className="text-sm font-semibold text-green-500 uppercase tracking-wider">Featured Today</span>
           <h2 className="text-4xl font-bold text-gray-700 mb-4">{featuredProduct.name}</h2>
           <p className="text-gray-600 mb-4">{featuredProduct.description}</p>
-          <p className="text-2xl font-bold text-orange-500 mb-6">${featuredProduct.price.toFixed(2)}</p>
+          <p className="text-2xl font-bold text-orange-500 mb-6">{formatPrice(featuredProduct.price)}</p>
           
           <Link 
             href="/products" 

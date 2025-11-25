@@ -1,62 +1,55 @@
-"use client";
+"use client"; 
 
-import Image from 'next/image';
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { MOCK_PRODUCTS } from '@/lib/mockData';
 import ProductCard from '@/components/direct-marketing/ProductCard';
-import Link from 'next/link'; 
+import Link from 'next/link';
+
+const ALL_CATEGORIES = ['All Products', ...Array.from(new Set(MOCK_PRODUCTS.map(p => p.category)))];
 
 export default function ProductsPage() {
-  const categories = Array.from(new Set(MOCK_PRODUCTS.map(p => p.category)));
+  const [activeCategory, setActiveCategory] = useState('All Products');
+
+  const filteredProducts = useMemo(() => {
+    if (activeCategory === 'All Products') {
+      return MOCK_PRODUCTS;
+    }
+    return MOCK_PRODUCTS.filter(product => product.category === activeCategory);
+  }, [activeCategory]);
   
   return (
     <div className="py-6">
       
-
       <header className="text-center mb-10">
         <h1 className="text-4xl font-extrabold text-gray-800 mb-2">Our Quality Products</h1>
-        
-
-<p className="text-xl text-gray-600 max-w-3xl mx-auto">
-  We offer products tailored to your needs, whether you are buying <span className="font-bold">groceries</span>, feeding a <span className="font-bold">family</span>, or shopping for <span className="font-bold">yourself</span>. Don't forget to check the Promotions page for <span className="font-bold">personalized offers</span>!
-</p>
-
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          We offer products tailored to your needs...
+        </p>
       </header>
       
-
       <nav className="flex flex-wrap justify-center space-x-3 mb-10">
-        <button className="px-4 py-2 text-sm font-medium rounded-full bg-green-700 text-white shadow-md transition hover:bg-green-800">
-          All Products
-        </button>
-        {categories.map(category => (
-          <button 
+        {ALL_CATEGORIES.map(category => (
+          <button
             key={category}
-            className="px-4 py-2 text-sm font-medium rounded-full bg-gray-200 text-gray-700 transition hover:bg-gray-300"
+            onClick={() => setActiveCategory(category)}
+            className={`px-4 py-2 text-sm font-medium rounded-full transition ${
+              activeCategory === category 
+                ? 'bg-green-700 text-white shadow-md hover:bg-green-800' 
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+            }`}
           >
             {category}
           </button>
         ))}
       </nav>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        {MOCK_PRODUCTS.map(product => (
+        {filteredProducts.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}
+        {filteredProducts.length === 0 && (
+          <p className="col-span-full text-center text-gray-500">No products found in this category.</p>
+        )}
       </div>
-      
-
-      <section className="mt-16 text-center bg-orange-50 p-6 rounded-lg shadow-md">
-        <h3 className="text-2xl font-bold text-gray-700 mb-3">Maximize Your Savings!</h3>
-        <p className="text-lg text-gray-600 mb-4">
-          Find coupons and bulk discounts on our dedicated promotions page.
-        </p>
-        <Link 
-          href="/promotions" 
-          className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300"
-        >
-          Check Promotions Now
-        </Link>
-      </section>
       
     </div>
   );
