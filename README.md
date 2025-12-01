@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Getting Started
 
 First, run the development server:
@@ -131,4 +128,3 @@ This project is configured for seamless deployment to **Vercel**, the recommende
 3.  Ensure your **Supabase Environment Variables** (`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`) are configured in the Vercel project settings.
 
 <!-- end list -->
->>>>>>> a2b6eec671f15243cc85030a1e0994d19c3c25c7
